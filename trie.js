@@ -88,6 +88,29 @@ class Trie {
 			throw new Error("key not found");
 		}
 	}
+
+	/**
+	 * Gives a set with all the keys in the trie
+	 * @returns {string[]} all the keys present in the trie
+	 */
+	getKeySet = () => this.#privGetKeySet("");
+
+	/**
+	 * Gives a set with all the keys in the trie
+	 * @param {string} key the concatenation of all the chars of the current node's parents and the current node's char
+	 * @returns {string[]} all the keys present in the trie
+	 */
+	#privGetKeySet(key) {
+		let set = [];
+		for (let i = 0; i < this.#children.length; i++)
+			if (this.#children[i] !== null)
+				set = set.concat(this.#children[i].#privGetKeySet(key + String.fromCharCode(i)));
+
+		if (this.value !== null)
+			set.push(key);
+
+		return set;
+	}
 }
 
 module.exports = Trie;
