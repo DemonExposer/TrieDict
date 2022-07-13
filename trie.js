@@ -12,7 +12,6 @@ class Trie {
 	 * @returns {any} the value connected to the key
 	 */
 	get(key) {
-		key = key.toLowerCase();
 		let charCode = key.charCodeAt(0);
 		if (charCode >= this.#children.length)
 			throw new Error("invalid key");
@@ -36,7 +35,6 @@ class Trie {
 	 * @param {any} value the value to be connected to key
 	 */
 	insert(key, value) {
-		key = key.toLowerCase();
 		let charCode = key.charCodeAt(0);
 		if (charCode >= this.#children.length)
 			throw new Error("invalid key");
@@ -61,7 +59,6 @@ class Trie {
 	 * @param {string} key the key to be removed
 	 */
 	remove(key) {
-		key = key.toLowerCase();
 		let charCode = key.charCodeAt(0);
 		if (charCode >= this.#children.length)
 			throw new Error("invalid key");
