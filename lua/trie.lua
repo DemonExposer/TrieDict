@@ -1,3 +1,10 @@
+--[[
+	DISCLAIMER: Of course, this is fully useless in Lua, as arrays do not exist and therefore,
+				this implementation of a trie dictionary is based on a hashtable.
+				This defeats the entire purpose of the trie dictionary, but it is still a nice
+				example of how to use Lua.
+]]
+
 Trie = {}
 Trie.__index = Trie
 local ARR_SIZE = 256
@@ -82,4 +89,21 @@ function Trie:remove(key)
 	else
 		error("key not found")
 	end
+end
+
+function Trie:getKeySet(key)
+	key = key or ""
+	local set = {}
+	for i, v in pairs(self.children) do
+		local nextSet = v:getKeySet(key .. string.char(i-1))
+		for _, value in pairs(nextSet) do
+			table.insert(set, value)
+		end
+	end
+
+	if self.value ~= nil then
+		table.insert(set, key)
+	end
+
+	return set
 end
